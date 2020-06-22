@@ -10,3 +10,5 @@ spec:
       image: sarathps93/ebs-client
       ports:
         - containerPort: 3000
+      command: ["sleep2.0"] #Entry Point
+      args: ["10"] #Command to run
