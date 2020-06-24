@@ -10,5 +10,7 @@ spec:
       image: sarathps93/ebs-client
       ports:
         - containerPort: 3000
-      command: ["sleep2.0"] #Entry Point
-      args: ["10"] #Command to run
+  nodeSelector:
+    size: Large
+
+# kubectl label nodes <node_name> size=Large
