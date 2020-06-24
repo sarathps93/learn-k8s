@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-pod
+  labels:
+    component: web
+spec:
+  containers:
+    - name: client
+      image: sarathps93/ebs-client
+      ports:
+        - containerPort: 3000
+      readinessProbe:
+        # We can mention either of the below options
+        httpGet:
+          path: /api/ready
+          port: 8080
+        tcpSocket:
+          port: 3306
+        exec:
+          command:
+            - cat
+            - /app/is_ready
+        initialDelay: 10 # Specify application warm up time statically
+        periodSeconds: 5 # To specify how frequently it should poll
+        failureThreshold: 6 # After how many unsuccessful attempts the pod should fail. Default value is 3
