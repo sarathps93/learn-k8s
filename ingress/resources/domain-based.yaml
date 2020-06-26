@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-domain-based
+spec:
+  rules:
+    - host: page1.sarathps.com
+      http:
+        paths:
+          - backend:
+              serviceName: first-domain-service
+              servicePort: 80
+    - host: page2.sarathps.com
+      http:
+        paths:
+          - backend:
+              serviceName: second-domain-service
+              servicePort: 80

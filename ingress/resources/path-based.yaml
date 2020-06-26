@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-route
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /first-route
+            backend:
+              serviceName: first-page-service
+              servicePort: 80
+          - path: /second-route
+            backend:
+              serviceName: second-page-service
+              servicePort: 80

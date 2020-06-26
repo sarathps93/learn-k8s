@@ -3,7 +3,8 @@ kind: Job
 metadata:
   name: math-add-job
 spec:
-  completions: 3 # By default creates it sequentially
+  backoffLimit: 15 # This is so the job does not quit before it succeeds. Default value 6
+  completions: 3 # By default creates it sequentially. Specifies how many successful attempts required
   parallelism: 3
   template:
     spec:
