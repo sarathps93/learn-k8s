@@ -17,3 +17,8 @@ spec:
           image: sarathps93/ebs-client
           ports:
             - containerPort: 3000
+
+# To assign domain and subdomain to the pods
+spec:
+  subdomain: <subdomain>
+  hostname: <host_name>

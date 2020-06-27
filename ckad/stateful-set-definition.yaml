@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+  serviceName: mysql-h # so all the replicas takes name sequentially like mysql-h-0, mysql-h-1 etc
+  podManagementPolicy: Parallel # To create pods in parallel rather than the default behaviour of sequential. Deafult: OrderedReady
+
+# All pods will get a separate dns record
+# mysql-0.mysql-h.default.svc.cluster.local
+# mysql-1.mysql-h.default.svc.cluster.local
+
+---
+# To provision individual PV for each pods
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: data-volume
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: google-storage
+        resources:
+          requests:
+            storage: 500Mi
+# StatefulSet does not delete the PVC when the pod dies. 
+# When the pod is recreated stateful sets tries to reassign the PVC to the pod
