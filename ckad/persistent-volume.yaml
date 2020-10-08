@@ -15,3 +15,8 @@ spec:
 awsElasticBlockStore:
   volumeID: <volume-id>
   fsType: ext4
+---
+# Instead of hostPath, to use nfs
+nfs:
+  server: nfs-server.default.svc.cluster.local
+  path: "/"

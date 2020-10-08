@@ -21,6 +21,6 @@ spec:
           command:
             - cat
             - /app/is_ready
-        initialDelay: 10 # Specify application warm up time statically
+        initialDelaySeconds: 10 # Specify application warm up time statically
         periodSeconds: 5 # To specify how frequently it should poll
         failureThreshold: 6 # After how many unsuccessful attempts the pod should fail. Default value is 3
